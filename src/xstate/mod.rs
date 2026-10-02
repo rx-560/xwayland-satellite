@@ -336,6 +336,7 @@ impl XState {
                 time: x::CURRENT_TIME,
             })
             .unwrap();
+
     }
 
     pub fn handle_events(&mut self, server_state: &mut super::RealServerState) {
@@ -1269,9 +1270,7 @@ impl WindowRoleHeuristics {
             match ty {
                 x if x == window_atoms.normal => return WindowRole::Toplevel,
                 x if x == window_atoms.dialog => {
-                    return WindowRole::new_basic(
-                        self.has_transient_for && motif_no_decor && forced_size,
-                    );
+                    return WindowRole::new_basic(self.override_redirect);
                 }
                 x if x == window_atoms.utility => {
                     return WindowRole::new_basic(motif_no_decor && forced_size);
